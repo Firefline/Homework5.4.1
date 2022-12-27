@@ -94,3 +94,53 @@ private:
     ListNode* m_tail;
     unsigned long m_size;
 };
+
+TEST_CASE("ListNode and List")
+{
+    List list;
+    ListNode listnode(0);
+
+    SECTION("Empty")
+    {
+        CHECK(list.Empty() == true);
+    }
+    SECTION("ListNode")
+    {
+        CHECK(listnode.value == 0);
+        CHECK(listnode.prev == nullptr);
+        CHECK(listnode.next == nullptr);
+    }
+    SECTION("Size and Clear")
+    {
+        CHECK(list.Size() == 0);
+        list.PushFront(15);
+        CHECK(list.Size() == 1);
+        list.Clear();
+        CHECK(list.Size() == 0);
+    }
+    SECTION("PushFront and PushBack")
+    {
+        list.Clear();
+        CHECK(list.Size() == 0);
+        list.PushFront(15);
+        list.PushBack(10);
+        CHECK(list.Size() == 2);
+    }
+    SECTION("PopFront and PopBack")
+    {
+        list.Clear();
+        CHECK(list.Size() == 0);
+        list.PushFront(15);
+        list.PushFront(14);
+        list.PushFront(13);
+        CHECK(list.Size() == 3);
+        list.PopBack();
+        list.PopFront();
+        CHECK(list.Size() == 1);
+    }
+}
+
+int main(int argc, char** argv)
+{
+    return Catch::Session().run(argc, argv);
+}
